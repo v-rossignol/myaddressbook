@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>rh.home</groupId>
+	<artifactId>myaddressbook</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>My Address Book</name>
+	<description>all modules for a very simple address book</description>
+	<url />
+	<licenses>
+		<license />
+	</licenses>
+	<developers>
+		<developer>
+			<id>v-rossignol</id>
+			<name>Vincent ROSSIGNOL</name>
+			<email>rossignol.vincent@gmail.com</email>
+			<url>https://github.com/v-rossignol</url>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>Europe/Paris</timezone>
+			<properties>
+				<picUrl>https://avatars.githubusercontent.com/u/10267768?v=4</picUrl>
+			</properties>
+		</developer>
+	</developers>
+	<scm>
+		<url>https://github.com/v-rossignol/myaddressbook</url>
+		<connection>scm:git:git://github.com/v-rossignol/myaddressbook.git</connection>
+		<developerConnection>scm:git:git@github.com:v-rossignol/myaddressbook.git</developerConnection>
+	</scm>
+	<properties>
+		<java.version>17</java.version>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<modules>
+		<module>core</module>
+		<module>ui</module>
+	</modules>
+	
+</project>
