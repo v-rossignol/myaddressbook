@@ -12,7 +12,10 @@ import rh.home.data.MabEntry;
 import rh.home.repositories.MabEntryRepository;
 
 /**
- * 
+ * REST API controller for My Address Book
+ * @author Vincent ROSSIGNOL
+ * @since ui version 0.0.1
+ * @version 0.0.1 
  */
 @RestController
 public class EntryController {
