@@ -10,6 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
+
+import org.apache.logging.log4j.util.Strings;
 
 import rh.home.data.MabEntry;
 
@@ -185,14 +188,32 @@ public class MabEntryEditor {
 		int result = JOptionPane.showConfirmDialog( null, this.getFieldPanel(), "Entry", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE );
 		
 		if ( result == JOptionPane.OK_OPTION ) {
-			this.getEntry().setFirstName( this.getTextFieldFirstName().getText() );
-			this.getEntry().setName( this.getTextFieldLastName().getText() );
-			this.getEntry().setDisplay( this.getTextFieldDisplay().getText() );
-			this.getEntry().setEmail( this.getTextFieldEmail().getText() );
-			this.getEntry().setAddress( this.getTextAreaAddress().getText() );
+			this.getEntry().setFirstName( getText( this.getTextFieldFirstName() ) );
+			this.getEntry().setName( getText( this.getTextFieldLastName() ) );
+			this.getEntry().setDisplay( getText( this.getTextFieldDisplay() ) );
+			this.getEntry().setEmail( getText( this.getTextFieldEmail() ) );
+			this.getEntry().setAddress( getText( this.getTextAreaAddress() ) );
 		}
 		
 		return result;
 	}
 
+	/**
+	 * gets the text from a text component.
+	 * @param component a valid {@link JTextComponent} instance.
+	 * @return a valid {@link Strings} instance or <code>null</code> if the text is empty. 
+	 */
+	protected static String getText( JTextComponent component ) {
+		
+		if ( component == null ) {
+			return null;
+		}
+		
+		if ( Strings.isBlank( component.getText() ) ) {
+			return null;
+		}
+		
+		return component.getText();
+	}
+	
 }

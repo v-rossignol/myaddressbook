@@ -77,14 +77,15 @@ public class MabMainWindow extends JFrame {
 
 	/**
 	 * button used to add an entry.
+	 * 
 	 * @return a valid {@link JButton} instance.
 	 */
 	protected JButton getAddButton() {
-		if ( this.btnAdd == null ) {
-			
-			this.btnAdd = new JButton( "+" );
-			this.btnAdd.addActionListener( new ActionListener() {
-				
+		if (this.btnAdd == null) {
+
+			this.btnAdd = new JButton("+");
+			this.btnAdd.addActionListener(new ActionListener() {
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					onAddButtonClicked();
@@ -93,34 +94,36 @@ public class MabMainWindow extends JFrame {
 		}
 		return this.btnAdd;
 	}
-	
+
 	/**
 	 * associated control panel.
+	 * 
 	 * @return a valid {@link JPanel} instance.
 	 */
 	protected JPanel getControlPanel() {
 
 		if (this.controls == null) {
-			
+
 			this.controls = new JPanel();
 
-			this.controls.add( this.getAddButton() );
-			this.controls.add( this.getDeleteButton());
-			
+			this.controls.add(this.getAddButton());
+			this.controls.add(this.getDeleteButton());
+
 		}
 
 		return this.controls;
 	}
-	
+
 	/**
 	 * button used to delete an entry.
+	 * 
 	 * @return a valid JButton instance.
 	 */
 	protected JButton getDeleteButton() {
-		if ( this.btnDelete == null ) {
-			this.btnDelete = new JButton( "-" );
-			this.btnDelete.addActionListener( new ActionListener() {
-				
+		if (this.btnDelete == null) {
+			this.btnDelete = new JButton("-");
+			this.btnDelete.addActionListener(new ActionListener() {
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					onDeleteButtonClicked();
@@ -129,7 +132,7 @@ public class MabMainWindow extends JFrame {
 		}
 		return this.btnDelete;
 	}
-	
+
 	/**
 	 * associated entry list.
 	 * 
@@ -138,20 +141,20 @@ public class MabMainWindow extends JFrame {
 	protected MabEntryList getEntryList() {
 		if (this.entries == null) {
 			this.entries = new MabEntryList(this.getServices());
-			this.entries.addMouseListener( new MouseAdapter() {
-				
+			this.entries.addMouseListener(new MouseAdapter() {
+
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					if ( e.getClickCount() == 2 ) {
-						onEntryListDoubleClicked( e );
+					if (e.getClickCount() == 2) {
+						onEntryListDoubleClicked(e);
 					}
-					
+
 				}
 			});
 		}
 		return this.entries;
 	}
-	
+
 	/**
 	 * associated services.
 	 * 
@@ -160,42 +163,48 @@ public class MabMainWindow extends JFrame {
 	protected IMabServices getServices() {
 		return this.services;
 	}
-	
-	
+
 	/**
 	 * method call when user clicks on "Add" button.
 	 */
 	private void onAddButtonClicked() {
 		MabEntryEditor editor = new MabEntryEditor();
-		if ( editor.show() == JOptionPane.OK_OPTION ) {
-			this.getServices().getEntryService().create( editor.getEntry() );
+		if (editor.show() == JOptionPane.OK_OPTION) {
+			this.getServices().getEntryService().create(editor.getEntry());
 			this.getEntryList().refresh();
 		}
 	}
-	
+
 	/**
 	 * method to be called when user clicks on "Delete" button.
 	 */
 	private void onDeleteButtonClicked() {
 		MabEntry entry = this.getEntryList().getSelectedEntry();
-		if ( entry != null ) {
-			this.getServices().getEntryService().delete( entry );
+		if (entry != null) {
+			this.getServices().getEntryService().delete(entry);
 			this.getEntryList().refresh();
 		}
-		
+
 	}
-	
+
 	/**
 	 * method called when used double click in the entry list.
+	 * 
 	 * @param event a valid {@link MouseEvent} instance.
 	 */
-	private void onEntryListDoubleClicked( MouseEvent event ) {
-		int index = this.getEntryList().locationToIndex( event.getPoint() );
-		MabEntry entry = this.getEntryList().getEntry( index );
-		MabEntryEditor editor = new MabEntryEditor( entry );
-		if ( editor.show() == JOptionPane.OK_OPTION ) {
-			this.getServices().getEntryService().create( editor.getEntry() );
-			this.getEntryList().refresh();
+	private synchronized void onEntryListDoubleClicked(MouseEvent event) {
+		int index = this.getEntryList().locationToIndex(event.getPoint());
+
+		MabEntry entry = this.getEntryList().getEntry(index);
+
+		if (entry != null) {
+
+			MabEntryEditor editor = new MabEntryEditor(entry);
+			if (editor.show() == JOptionPane.OK_OPTION) {
+				this.getServices().getEntryService().create(editor.getEntry());
+				this.getEntryList().refresh();
+			}
+
 		}
 	}
 
@@ -211,6 +220,9 @@ public class MabMainWindow extends JFrame {
 		this.getContentPane().add(BorderLayout.SOUTH, this.getControlPanel());
 		this.getContentPane().add(BorderLayout.CENTER, this.getEntryList());
 
+		/* displaying entries */
+		this.getEntryList().refresh();
+		
 	}
 
 }
